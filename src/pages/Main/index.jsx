@@ -81,7 +81,6 @@ function Main() {
 
 
   const handleSelectedTrackingCode = async (trackingCode) => {
-
     setSearch(true);
     setInvalidCode(false);
     setLoading(true);
