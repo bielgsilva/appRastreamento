@@ -1,13 +1,13 @@
+import React, { useState } from 'react';
+import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
-import  { useState } from 'react';
-import './styles.scss';
-
+import styles from '../../../../../styles/index';
 
 const EditModal = ({ isOpen, onClose, handleSaveEdit, selectedTrackingCode }) => {
   const [editedValue, setEditedValue] = useState(selectedTrackingCode);
 
-  const handleInputChange = (e) => {
-    setEditedValue(e.target.value);
+  const handleInputChange = (text) => {
+    setEditedValue(text);
   };
 
   const handleSave = () => {
@@ -17,18 +17,31 @@ const EditModal = ({ isOpen, onClose, handleSaveEdit, selectedTrackingCode }) =>
   };
 
   return (
-    <div className={`edit-modal ${isOpen ? 'open' : ''}`}>
-      <div className="modal-content flex-center-column">
-        <span className="close" onClick={onClose}>&times;</span>
-        <h2>Editar Nome do Código</h2>
-        <h4>Atual: {selectedTrackingCode}</h4>
-        <input 
-        type="text"
-         onChange={handleInputChange} 
-         />
-        <button onClick={handleSave}>Salvar</button>
-      </div>
-    </div>
+    <Modal
+      visible={isOpen}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={onClose}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <View style={styles.trackingContent}>
+
+          <Text style={styles.title1}>Editar Nome do Código</Text>
+          <Text style={styles.title1}>Atual: {selectedTrackingCode}</Text>
+          <TextInput
+            style={styles.input}
+            value={editedValue}
+            onChangeText={handleInputChange}
+            placeholder="Digite o novo nome do código"
+          />
+          <TouchableOpacity onPress={handleSave} style={styles.button}>
+            <Text style={styles.saveButtonText}>Salvar</Text>
+          </TouchableOpacity>
+
+        </View>
+      </View>
+    </Modal>
   );
 };
 

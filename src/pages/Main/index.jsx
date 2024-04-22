@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import mainStyles from './mainStyles';
 import styles from '../../../styles';
 
 import axios from '../../lib/axios';
 
 
 import TrackingResult from './components/TrackingResult';
+import EditModal from './components/EditModal';
 
 
 function Main() {
@@ -49,8 +49,6 @@ function Main() {
   };
 
   const submitHandler = async (trackingCode) => {
-
-    console.log('ENTREI');
     try {
       setSearch(true);
       setInvalidCode(false);
@@ -66,7 +64,9 @@ function Main() {
       setData(statusList);
 
       if (statusList.length === 0) {
+        setLoading(false);
         setInvalidCode(true);
+
       } else {
         handleUpdateSuccessfulSearchHistory(trackingCode, trackingCode);
       }
@@ -81,6 +81,7 @@ function Main() {
 
 
   const handleSelectedTrackingCode = async (trackingCode) => {
+
     setSearch(true);
     setInvalidCode(false);
     setLoading(true);
@@ -93,7 +94,9 @@ function Main() {
       setData(statusList);
 
       if (statusList.length === 0) {
+        setLoading(false);
         setInvalidCode(true);
+        console.log("Codigo de Rastreio Inválido");
       }
     } catch (error) {
       setApiIsDown(true);
@@ -159,13 +162,11 @@ function Main() {
         source={{ uri: 'https://png.pngtree.com/thumb_back/fw800/background/20230624/pngtree-mail-sorting-system-3d-illustration-of-parcels-being-organized-and-sorted-image_3668517.jpg' }}
         style={styles.container}
       >
-
-
-
         <View style={[styles.overlay]}>
+
           {!editModalOpen &&
             <>
-              <View style={mainStyles.trackingContent}>
+              <View style={styles.trackingContent}>
 
                 {loading && <Text>Carregando...</Text>}
 
@@ -179,13 +180,9 @@ function Main() {
                       placeholder="CÓDIGO DE RASTREIO DO CORREIOS"
                       textAlign="center"
                     />
-
-
                     <TouchableOpacity style={styles.button} title="Rastrear" onPress={() => submitHandler(trackingCode)} >
                       <Text style={styles.buttonText}>Rastrear Encomenda</Text>
-
                     </TouchableOpacity>
-
 
                   </>
 
@@ -200,31 +197,31 @@ function Main() {
 
                 }
 
-                {!search && invalidCode && !loading &&
-                  <View>
-                    <Text style={styles.header}>Código de Rastreio inválido</Text>
-                    <View style={styles.buttonContainer}>
-                      <TouchableOpacity style={styles.button} title="Realizar outra pesquisa" onPress={handleNewSearch} >
-                        <Text style={styles.buttonText}>Realizar outra pesquisa</Text>
+                {search && invalidCode && !loading &&
+                  <>
+                    <Text style={styles.title1}>Código de Rastreio inválido</Text>
 
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+                    <TouchableOpacity style={styles.button} title="Realizar outra pesquisa" onPress={handleNewSearch} >
+                      <Text style={styles.buttonText}>Realizar outra pesquisa</Text>
+
+                    </TouchableOpacity>
+
+                  </>
                 }
 
                 {search && apiIsDown && !loading &&
-                  <View>
+                  <>
                     <Text style={styles.title1}>API fora do ar...</Text>
-                
+
                     <TouchableOpacity style={styles.button} title="Realizar outra pesquisa" onPress={handleNewSearch} >
                       <Text style={styles.buttonText}>Realizar outra pesquisa</Text>
                     </TouchableOpacity>
 
-                  </View>
+                  </>
                 }
               </View>
 
-              <View style={mainStyles.trackingContent}>
+              <View style={styles.trackingContent}>
                 {!emptyHistory
                   ?
                   <>
