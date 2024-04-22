@@ -9,13 +9,19 @@
     },
     "preview": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease",
+        "developmentClient": true,
+        "distribution": "internal"
       }
     },
     "production": {
       "android": {
-        "buildType": "apk"
+        "image": "latest"
       }
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
