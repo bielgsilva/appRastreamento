@@ -69,12 +69,15 @@ function Main() {
 
       } else {
         handleUpdateSuccessfulSearchHistory(trackingCode, trackingCode);
+        setApiIsDown(false)
+
       }
     } catch (error) {
       setApiIsDown(true);
       console.error('Erro ao acessar API', error);
     } finally {
       setLoading(false);
+
     }
   };
 
@@ -95,8 +98,12 @@ function Main() {
       if (statusList.length === 0) {
         setLoading(false);
         setInvalidCode(true);
-        console.log("Codigo de Rastreio Inválido");
+
+      } else {
+        setApiIsDown(false)
+
       }
+      
     } catch (error) {
       setApiIsDown(true);
     } finally {

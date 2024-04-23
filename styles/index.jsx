@@ -63,21 +63,25 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    backgroundColor: 'green',
-    paddingVertical: 10,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 25,
     alignItems: 'center',
-    fontSize: 15,
     justifyContent: 'center',
-    elevation: 3,
-    color: "black",
-    marginBottom: 15
+    marginBottom: 20,
+    borderWidth: 0.1,
+    borderColor: 'black',
+
+    elevation: 5,
   },
   buttonText: {
-    fontSize: 15,
-    textAlign: "center"
+    color: '#FFFFFF', 
+    fontSize: 15, 
+    fontWeight: 'bold',
+    textTransform:"uppercase",
   },
+  
   title1: {
     fontSize: 18,
     lineHeight: 26,

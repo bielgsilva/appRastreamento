@@ -22,12 +22,11 @@ const EditModal = ({ isOpen, onClose, handleSaveEdit, selectedTrackingCode }) =>
       animationType="slide"
       transparent={true}
       onRequestClose={onClose}
-      style={styles.container}
     >
-      <View style={styles.container}>
+      <View style={[styles.container, { padding: 20 }]}>
         <View style={styles.trackingContent}>
 
-          <Text style={styles.title1}>Editar Nome do Código</Text>
+          <Text style={styles.title1}>Editar Nome do Rastreio</Text>
           <Text style={styles.title1}>Atual: {selectedTrackingCode}</Text>
           <TextInput
             style={styles.input}
@@ -36,7 +35,7 @@ const EditModal = ({ isOpen, onClose, handleSaveEdit, selectedTrackingCode }) =>
             placeholder="Digite o novo nome do código"
           />
           <TouchableOpacity onPress={handleSave} style={styles.button}>
-            <Text style={styles.saveButtonText}>Salvar</Text>
+            <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
 
         </View>
